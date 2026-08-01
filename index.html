@@ -8,364 +8,98 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --shopee: #EE4D2D;
-      --shopee-dark: #D73211;
-      --shopee-light: #FFF3F0;
-      --text: #222;
-      --text-muted: #888;
-      --bg: #F5F5F5;
-      --card-bg: #fff;
-      --radius: 10px;
-    }
-    body {
-      font-family: 'Poppins', -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    /* ── Header ── */
-    header {
-      background: var(--shopee);
-      color: #fff;
-      padding: 20px 16px 16px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(238,77,45,0.3);
-    }
-    .logo-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 4px;
-    }
-    .shopee-logo {
-      width: 28px; height: 28px;
-      background: #fff;
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .shopee-logo svg { width: 20px; height: 20px; }
-    header h1 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-    header .handle {
-      font-size: 0.78rem;
-      opacity: 0.85;
-      margin-bottom: 12px;
-    }
-
-    /* ── Search ── */
-    .search-wrap {
-      background: var(--shopee);
-      padding: 0 12px 14px;
-    }
-    .search-box {
-      display: flex;
-      align-items: center;
-      background: #fff;
-      border-radius: 20px;
-      padding: 8px 14px;
-      gap: 8px;
-    }
-    .search-box svg { flex-shrink: 0; color: var(--shopee); }
-    .search-box input {
-      border: none;
-      outline: none;
-      font-family: inherit;
-      font-size: 0.9rem;
-      width: 100%;
-      color: var(--text);
-      background: transparent;
-    }
-    .search-box input::placeholder { color: #bbb; }
-
-    /* ── Counter ── */
-    .counter {
-      text-align: center;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      padding: 10px 16px 0;
-    }
-
-    /* ── Grid ── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      padding: 10px 10px 6px;
-    }
-    @media (min-width: 480px) {
-      .grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (min-width: 768px) {
-      .grid { grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 14px 16px 8px; max-width: 1100px; margin: 0 auto; }
-    }
-
-    /* ── Card ── */
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.15s, box-shadow 0.15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .card:active { transform: scale(0.97); }
-    @media (hover: hover) {
-      .card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
-    }
-    .card-img {
-      width: 100%; aspect-ratio: 1;
-      object-fit: cover;
-      background: #f0f0f0;
-      display: block;
-    }
-    .card-body {
-      padding: 8px 10px 10px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .card-name {
-      font-size: 0.75rem;
-      line-height: 1.4;
-      flex: 1;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .card-btn {
-      display: block;
-      text-align: center;
-      background: var(--shopee);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 7px 8px;
-      border-radius: 6px;
-      letter-spacing: 0.2px;
-    }
-
-    /* ── Empty state ── */
-    .empty {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding: 48px 24px;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      gap: 8px;
-    }
-    .empty svg { opacity: 0.3; }
-
-    /* ── Pagination ── */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
-      padding: 16px 12px 24px;
-      flex-wrap: wrap;
-    }
-    .page-btn {
-      min-width: 36px; height: 36px;
-      border: 1.5px solid #ddd;
-      border-radius: 8px;
-      background: #fff;
-      font-family: inherit;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--text);
-      padding: 0 8px;
-      transition: background 0.15s, border-color 0.15s, color 0.15s;
-    }
-    .page-btn:hover { border-color: var(--shopee); color: var(--shopee); }
-    .page-btn.active {
-      background: var(--shopee);
-      border-color: var(--shopee);
-      color: #fff;
-    }
-    .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      padding: 0 16px 32px;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-    footer a { color: var(--shopee); text-decoration: none; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--shopee:#EE4D2D;--shopee-dark:#D73211;--bg:#F5F5F5;--card:#fff;--text:#222;--muted:#888;--r:10px}
+    body{font-family:'Poppins',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-tap-highlight-color:transparent}
+    header{background:var(--shopee);color:#fff;padding:18px 16px 14px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(238,77,45,.3)}
+    .logo-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px}
+    .shopee-logo{width:32px;height:32px;display:flex;align-items:center;justify-content:center}
+    header h1{font-size:1.15rem;font-weight:700;line-height:1.2}
+    header .handle{font-size:.78rem;opacity:.85;margin-bottom:10px}
+    .search-wrap{background:var(--shopee);padding:0 12px 14px}
+    .search-box{display:flex;align-items:center;background:#fff;border-radius:20px;padding:8px 14px;gap:8px}
+    .search-box svg{flex-shrink:0;color:var(--shopee)}
+    .search-box input{border:none;outline:none;font-family:inherit;font-size:.9rem;width:100%;color:var(--text);background:transparent}
+    .search-box input::placeholder{color:#bbb}
+    .counter{text-align:center;font-size:.78rem;color:var(--muted);padding:10px 16px 0}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px 10px 6px}
+    @media(min-width:480px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media(min-width:768px){.grid{grid-template-columns:repeat(4,1fr);gap:14px;padding:14px 16px 8px;max-width:1100px;margin:0 auto}}
+    .card{background:var(--card);border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 1px 4px rgba(0,0,0,.08);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+    .card:active{transform:scale(.97)}
+    @media(hover:hover){.card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.12)}}
+    .card-img{width:100%;aspect-ratio:1;object-fit:cover;background:#f0f0f0;display:block}
+    .card-body{padding:8px 10px 10px;flex:1;display:flex;flex-direction:column;gap:6px}
+    .card-name{font-size:.75rem;line-height:1.4;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .card-btn{display:block;text-align:center;background:var(--shopee);color:#fff;font-size:.72rem;font-weight:700;padding:7px 8px;border-radius:6px}
+    .empty{display:none;flex-direction:column;align-items:center;padding:48px 24px;color:var(--muted);font-size:.9rem;gap:8px}
+    .empty svg{opacity:.3}
+    .pagination{display:flex;justify-content:center;align-items:center;gap:6px;padding:16px 12px 24px;flex-wrap:wrap}
+    .page-btn{min-width:36px;height:36px;border:1.5px solid #ddd;border-radius:8px;background:#fff;font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--text);padding:0 8px;transition:background .15s,border-color .15s,color .15s}
+    .page-btn:hover{border-color:var(--shopee);color:var(--shopee)}
+    .page-btn.active{background:var(--shopee);border-color:var(--shopee);color:#fff}
+    .page-btn:disabled{opacity:.35;cursor:not-allowed}
+    footer{text-align:center;padding:0 16px 32px;font-size:.72rem;color:var(--muted)}
+    footer a{color:var(--shopee);text-decoration:none}
   </style>
 </head>
 <body>
-
 <header>
   <div class="logo-row">
-
     <div class="shopee-logo">
-      <!-- Logo Shopee SVG -->
-      <svg 
-        version="1.1" 
-        id="Layer_1" 
-        xmlns="http://www.w3.org/2000/svg" 
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 109.59 122.88"
-        xml:space="preserve">
-
-        <style type="text/css">
-          .st0 {
-            fill: #EE4D2D;
-          }
-        </style>
-
-        <path class="st0" d="M74.98,91.98C76.15,82.36,69.96,76.22,53.6,71c-7.92-2.7-11.66-6.24-11.57-11.12
-        c0.33-5.4,5.36-9.34,12.04-9.47c4.63,0.09,9.77,1.22,14.76,4.56
-        c0.59,0.37,1.01,0.32,1.35-0.2c0.46-0.74,1.61-2.53,2-3.17
-        c0.26-0.42,0.31-0.96-0.35-1.44c-0.95-0.7-3.6-2.13-5.03-2.72
-        c-3.88-1.62-8.23-2.64-12.86-2.63c-9.77,0.04-17.47,6.22-18.12,14.47
-        c-0.42,5.95,2.53,10.79,8.86,14.47c1.34,0.78,8.6,3.67,11.49,4.57
-        c9.08,2.83,13.8,7.9,12.69,13.81c-1.01,5.36-6.65,8.83-14.43,8.93
-        c-6.17-0.24-11.71-2.75-16.02-6.1
-        c-0.11-0.08-0.65-0.5-0.72-0.56
-        c-0.53-0.42-1.11-0.39-1.47,0.15
-        c-0.26,0.4-1.92,2.8-2.34,3.43
-        c-0.39,0.55-0.18,0.86,0.23,1.2
-        c1.8,1.5,4.18,3.14,5.81,3.97
-        c4.47,2.28,9.32,3.53,14.48,3.72
-        c3.32,0.22,7.5-0.49,10.63-1.81
-        C70.63,102.67,74.25,97.92,74.98,91.98L74.98,91.98z
-        M54.79,7.18c-10.59,0-19.22,9.98-19.62,22.47h39.25
-        C74.01,17.16,65.38,7.18,54.79,7.18L54.79,7.18z
-        M94.99,122.88l-0.41,0l-80.82-0.01h0
-        c-5.5-0.21-9.54-4.66-10.09-10.19l-0.05-1
-        l-3.61-79.5v0C0,32.12,0,32.06,0,32
-        c0-1.28,1.03-2.33,2.3-2.35l0,0h25.48
-        C28.41,13.15,40.26,0,54.79,0s26.39,13.15,27.01,29.65
-        h25.4h0.04c1.3,0,2.35,1.05,2.35,2.35
-        c0,0.04,0,0.08,0,0.12v0l-3.96,79.81l-0.04,0.68
-        C105.12,118.21,100.59,122.73,94.99,122.88L94.99,122.88z"/>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" rx="18" fill="#fff"/>
+        <path d="M50 10C33.43 10 20 23.43 20 40c0 8.28 3.36 15.78 8.79 21.21L25 75l14.64-4.39A29.8 29.8 0 0050 72c16.57 0 30-13.43 30-32S66.57 10 50 10zm0 12c6.63 0 12 5.37 12 12s-5.37 12-12 12-12-5.37-12-12 5.37-12 12-12zm0 38c-5.52 0-10 4.48-10 10h20c0-5.52-4.48-10-10-10z" fill="#EE4D2D"/>
       </svg>
     </div>
-
+    <h1>Mariana Oliveira</h1>
   </div>
+  <p class="handle">@mariana.oliveira.mae • Achadinhos Shopee 🛍️</p>
 </header>
-
 <div class="search-wrap">
   <div class="search-box">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-    </svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     <input type="search" id="search" placeholder="Pesquisar produtos..." autocomplete="off" autocorrect="off" spellcheck="false"/>
   </div>
 </div>
-
 <p class="counter" id="counter"></p>
-
 <div class="grid" id="grid"></div>
-
 <div class="empty" id="empty">
   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
   <span>Nenhum produto encontrado</span>
 </div>
-
 <div class="pagination" id="pagination"></div>
-
-<footer>
-  Links de afiliado <a href="https://shopee.com.br" target="_blank" rel="noopener">Shopee</a> 🧡
-</footer>
-
+<footer>Links de afiliado <a href="https://shopee.com.br" target="_blank" rel="noopener">Shopee</a> 🧡</footer>
 <script>
-(function() {
-  const PRODUTOS = [{"id":"14692504986","nome":"Kit saquinho organizador  Maternidade 6x com ziper + tags tela","link":"https://s.shopee.com.br/3LPfsDoqWs","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-14692504986","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-14692504986"},{"id":"23393963564","nome":"Kit 5/10 Saquinhos Maternidade Organizador Mala Bebê + 5 Tag de Identificação de Trocas","link":"https://s.shopee.com.br/19Du61XIQ","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23393963564","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23393963564"},{"id":"23697550186","nome":"Vestido Curto Jeans Gestante Lastex Busto Amamentação Maternidade Elegante","link":"https://s.shopee.com.br/9V0JDYRN1f","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23697550186","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23697550186"},{"id":"23593597356","nome":"Vestido Verão Gestante Lactante Lastex Busto Alça Amamentação Maternidade","link":"https://s.shopee.com.br/AKZQD5OCKq","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23593597356","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23593597356"},{"id":"23093963640","nome":"Kit Saquinho Saco Maternidade Bebê Organizador  + 5 Tag de Identificação de Troca","link":"https://s.shopee.com.br/8fRCE1UXiQ","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23093963640","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23093963640"},{"id":"23698460209","nome":"Kit  Saquinho Organizador Bolsa Maternidade + 5 Tag de Identificação de Trocas","link":"https://s.shopee.com.br/1LebUXwSao","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23698460209","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23698460209"},{"id":"22393963742","nome":"Kit 5 Saquinho Organizador Bolsa Maternidade + Tags de Identificação Chaveiro","link":"https://s.shopee.com.br/2VqYsgs1E5","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-22393963742","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-22393963742"},{"id":"22194423083","nome":"Kit 5/10 Saquinho 18 X 15 X 05  Brinquedo Pvc Com Ziper","link":"https://s.shopee.com.br/2BDiU4tHu3","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-22194423083","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-22194423083"},{"id":"23498363470","nome":"saída maternidade bebê menino masculina suspensório e gravatinha","link":"https://s.shopee.com.br/9ANSowXB0j","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23498363470","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23498363470"},{"id":"19597750051","nome":"Calça Alfaiataria Gestante Malha Cós Alto Elástico Maternidade Confortável","link":"https://s.shopee.com.br/8KoLpPaLhc","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-19597750051","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-19597750051"},{"id":"53750705493","nome":"Nome Luminoso Personalizado com LED Decoração Exclusiva e Iluminada para Porta Maternidade","link":"https://s.shopee.com.br/1qas5SzADF","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-53750705493","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-53750705493"},{"id":"29343487338","nome":"Nome Personalizado Luminoso com Led Decoração Exclusiva e Iluminada para Porta Maternidade","link":"https://s.shopee.com.br/1gHRt9znYC","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-29343487338","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-29343487338"},{"id":"17841878139","nome":"Kit 2 Camisola de Amamentação Abre Fácil Pós-Parto Grávida Gestante Conforto Cuidado Pronta Entrega","link":"https://s.shopee.com.br/8AUvd6az2d","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-17841878139","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-17841878139"},{"id":"15441633242","nome":"Camisola Amamentação Pós Parto Saída de Maternidade Abre Fácil Confortável Pijama Moda Luxo Promoção","link":"https://s.shopee.com.br/80BVQnbcNa","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-15441633242","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-15441633242"},{"id":"14354571119","nome":"Camisola de Amamentação Gestante Grávida Comprido Conforto Maternidade Mãe Promoção Pronta Entrega","link":"https://s.shopee.com.br/AKZQD5Sje4","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-14354571119","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-14354571119"},{"id":"23598382704","nome":"Kit Robe Roupão e Camisola Amamentação Pós Parto Liso Renda Maternidade Gestante","link":"https://s.shopee.com.br/7AcORGerNi","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23598382704","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23598382704"},{"id":"42764920484","nome":"saída Maternidade trico unissex amarela bebe roupinha recém nascido","link":"https://s.shopee.com.br/7ps5EUcK1u","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-42764920484","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-42764920484"},{"id":"58209736169","nome":"Saída Maternidade Bebê Luxo 4 Peças RN Kit Completo Algodão Macacão Manta Luva Menina Menino","link":"https://s.shopee.com.br/gOuhK3ba6","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-58209736169","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-58209736169"},{"id":"58251031120","nome":"Vestido Longo Maternidade com Alça e Cintura Ajustável Em Viscose Premium Dia a Dia Moda Evangélica","link":"https://s.shopee.com.br/2g9z4zvzWI","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-58251031120","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-58251031120"},{"id":"23098743964","nome":"Kit Saída Maternidade Tricot Vestido Princesa com Pérolas +Calça +Sapato + Luvas + Touca Confortável","link":"https://s.shopee.com.br/1BLBIF1hZB","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23098743964","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23098743964"},{"id":"23098041821","nome":"Kit 2 Camisolas em Suede + 3 Sutiãs Amamentação","link":"https://s.shopee.com.br/4qETeynk7X","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23098041821","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23098041821"},{"id":"21348958753","nome":"kit 2 Baby Doll Amamentação Gestante Confortável Click Abertura Seguro lactante","link":"https://s.shopee.com.br/2BDiU4xpDm","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-21348958753","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-21348958753"},{"id":"27789563757","nome":"Camisola Plus Size Suede 48 50 52 Carol","link":"https://s.shopee.com.br/1Vy1gr0MZi","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-27789563757","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-27789563757"},{"id":"18299602357","nome":"Kit 3 Camisola Suede Amamentação Pós Parto","link":"https://s.shopee.com.br/1gHRt9zjEj","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-18299602357","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-18299602357"},{"id":"22197934317","nome":"Camisola Amamentação Gestante em Suede Pós Parto","link":"https://s.shopee.com.br/6AjrFQifPg","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-22197934317","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-22197934317"},{"id":"23799025820","nome":"Conjunto Gestante Soltinho Regata e Short Leve Plus Size","link":"https://s.shopee.com.br/qiKtd2tvO","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23799025820","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23799025820"},{"id":"18775179341","nome":"kit 3 Camisola Amamentação Abre Fácil Gestante Pós Parto Saída Maternidade Confortável","link":"https://s.shopee.com.br/20uIHlySYl","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-18775179341","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-18775179341"},{"id":"23298678185","nome":"Kit Saída Maternidade Unissex Tricot – Manta, Jardineira, Casaco, Touca e Luvas para Menino e Menina","link":"https://s.shopee.com.br/2VqYsgwcrJ","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23298678185","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23298678185"},{"id":"23897903320","nome":"Kit 2 Camisolas Amamentação em Suede","link":"https://s.shopee.com.br/70IyExfUih","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-23897903320","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23897903320"},{"id":"43361773907","nome":"Camisola Plus Size 48 50 52 Cristina","link":"https://s.shopee.com.br/7fYf2BcxMt","img":"https://down-br.img.susercontent.com/file/br-11134201-7r98o-43361773907","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-43361773907"}];
-  const PER_PAGE = 20;
-  let query = '';
-  let page  = 1;
-
-  function filtered() {
-    if (!query) return PRODUTOS;
-    const q = query.toLowerCase();
-    return PRODUTOS.filter(p => p.nome.toLowerCase().includes(q));
+(function(){
+const P=[{"id":"14692504986","nome":"Kit saquinho organizador  Maternidade 6x com ziper + tags tela","link":"https://s.shopee.com.br/3LPfsDoqWs","img":"https://cf.shopee.com.br/file/1c190d26a28ca819a03dc0387f17ad6c","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-14692504986"},{"id":"23393963564","nome":"Kit 5/10 Saquinhos Maternidade Organizador Mala Bebê + 5 Tag de Identificação de Trocas","link":"https://s.shopee.com.br/19Du61XIQ","img":"https://cf.shopee.com.br/file/br-11134207-820m4-mo5b5bnrd5hgd3","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23393963564"},{"id":"23697550186","nome":"Vestido Curto Jeans Gestante Lastex Busto Amamentação Maternidade Elegante","link":"https://s.shopee.com.br/9V0JDYRN1f","img":"https://cf.shopee.com.br/file/br-11134201-7r98o-m80uzcatyygh19","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23697550186"},{"id":"23593597356","nome":"Vestido Verão Gestante Lactante Lastex Busto Alça Amamentação Maternidade","link":"https://s.shopee.com.br/AKZQD5OCKq","img":"https://cf.shopee.com.br/file/br-11134207-820l5-mo79h189p62pf3","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23593597356"},{"id":"23093963640","nome":"Kit Saquinho Saco Maternidade Bebê Organizador  + 5 Tag de Identificação de Troca","link":"https://s.shopee.com.br/8fRCE1UXiQ","img":"https://cf.shopee.com.br/file/br-11134207-820lm-mo5gn8xrueioa8","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23093963640"},{"id":"23698460209","nome":"Kit  Saquinho Organizador Bolsa Maternidade + 5 Tag de Identificação de Trocas","link":"https://s.shopee.com.br/1LebUXwSao","img":"https://cf.shopee.com.br/file/br-11134207-820m4-mo5b5bnrd5hgd3","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23698460209"},{"id":"22393963742","nome":"Kit 5 Saquinho Organizador Bolsa Maternidade + Tags de Identificação Chaveiro","link":"https://s.shopee.com.br/2VqYsgs1E5","img":"https://cf.shopee.com.br/file/br-11134207-820lt-mnzrl4htu1hef6","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-22393963742"},{"id":"22194423083","nome":"Kit 5/10 Saquinho 18 X 15 X 05  Brinquedo Pvc Com Ziper","link":"https://s.shopee.com.br/2BDiU4tHu3","img":"https://cf.shopee.com.br/file/br-11134207-81z1k-mek2zs6okh6q83","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-22194423083"},{"id":"23498363470","nome":"saída maternidade bebê menino masculina suspensório e gravatinha","link":"https://s.shopee.com.br/9ANSowXB0j","img":"https://cf.shopee.com.br/file/br-11134207-7r98o-m813ucdcgpox23","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23498363470"},{"id":"19597750051","nome":"Calça Alfaiataria Gestante Malha Cós Alto Elástico Maternidade Confortável","link":"https://s.shopee.com.br/8KoLpPaLhc","img":"https://cf.shopee.com.br/file/br-11134201-7r98o-m80v5cfrohlda4","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-19597750051"},{"id":"53750705493","nome":"Nome Luminoso Personalizado com LED Decoração Exclusiva e Iluminada para Porta Maternidade","link":"https://s.shopee.com.br/1qas5SzADF","img":"https://cf.shopee.com.br/file/sg-11134201-821ff-mgkytbx795ou11","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-53750705493"},{"id":"29343487338","nome":"Nome Personalizado Luminoso com Led Decoração Exclusiva e Iluminada para Porta Maternidade","link":"https://s.shopee.com.br/1gHRt9znYC","img":"https://cf.shopee.com.br/file/sg-11134201-821dm-mgkzczya598v97","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-29343487338"},{"id":"17841878139","nome":"Kit 2 Camisola de Amamentação Abre Fácil Pós-Parto Grávida Gestante Conforto Cuidado Pronta Entrega","link":"https://s.shopee.com.br/8AUvd6az2d","img":"https://cf.shopee.com.br/file/br-11134207-7r98o-m2uvgvnxnbo518","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-17841878139"},{"id":"15441633242","nome":"Camisola Amamentação Pós Parto Saída de Maternidade Abre Fácil Confortável Pijama Moda Luxo Promoção","link":"https://s.shopee.com.br/80BVQnbcNa","img":"https://cf.shopee.com.br/file/br-11134207-7r98o-m2jgnu2kx2hid0","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-15441633242"},{"id":"14354571119","nome":"Camisola de Amamentação Gestante Grávida Comprido Conforto Maternidade Mãe Promoção Pronta Entrega","link":"https://s.shopee.com.br/AKZQD5Sje4","img":"https://cf.shopee.com.br/file/br-11134201-23030-wwu7e4ahgjova0","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-14354571119"},{"id":"23598382704","nome":"Kit Robe Roupão e Camisola Amamentação Pós Parto Liso Renda Maternidade Gestante","link":"https://s.shopee.com.br/7AcORGerNi","img":"https://cf.shopee.com.br/file/sg-11134201-7reou-m8cdh4pvmilld6","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23598382704"},{"id":"42764920484","nome":"saída Maternidade trico unissex amarela bebe roupinha recém nascido","link":"https://s.shopee.com.br/7ps5EUcK1u","img":"https://cf.shopee.com.br/file/br-11134201-820ma-mqy8f3fk191jc6","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-42764920484"},{"id":"58209736169","nome":"Saída Maternidade Bebê Luxo 4 Peças RN Kit Completo Algodão Macacão Manta Luva Menina Menino","link":"https://s.shopee.com.br/gOuhK3ba6","img":"https://cf.shopee.com.br/file/br-11134207-820lv-mnkn71i2u2v630","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-58209736169"},{"id":"58251031120","nome":"Vestido Longo Maternidade com Alça e Cintura Ajustável Em Viscose Premium Dia a Dia Moda Evangélica","link":"https://s.shopee.com.br/2g9z4zvzWI","img":"https://cf.shopee.com.br/file/sg-11134201-82257-mhi28e4qwlqeae","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-58251031120"},{"id":"23098743964","nome":"Kit Saída Maternidade Tricot Vestido Princesa com Pérolas +Calça +Sapato + Luvas + Touca Confortável","link":"https://s.shopee.com.br/1BLBIF1hZB","img":"https://cf.shopee.com.br/file/br-11134207-81z1k-meslpvv23t34e2","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23098743964"},{"id":"23098041821","nome":"Kit 2 Camisolas em Suede + 3 Sutiãs Amamentação","link":"https://s.shopee.com.br/4qETeynk7X","img":"https://cf.shopee.com.br/file/br-11134207-7r98o-m2xxcd49b85hcd","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23098041821"},{"id":"21348958753","nome":"kit 2 Baby Doll Amamentação Gestante Confortável Click Abertura Seguro lactante","link":"https://s.shopee.com.br/2BDiU4xpDm","img":"https://cf.shopee.com.br/file/br-11134207-7r98o-maplv9p314opc0","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-21348958753"},{"id":"27789563757","nome":"Camisola Plus Size Suede 48 50 52 Carol","link":"https://s.shopee.com.br/1Vy1gr0MZi","img":"https://cf.shopee.com.br/file/sg-11134201-7rdvu-md3lcmku45h337","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-27789563757"},{"id":"18299602357","nome":"Kit 3 Camisola Suede Amamentação Pós Parto","link":"https://s.shopee.com.br/1gHRt9zjEj","img":"https://cf.shopee.com.br/file/br-11134207-7r98o-maplv9p2ybjtf1","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-18299602357"},{"id":"22197934317","nome":"Camisola Amamentação Gestante em Suede Pós Parto","link":"https://s.shopee.com.br/6AjrFQifPg","img":"https://cf.shopee.com.br/file/br-11134207-7r98o-m14u548l32wj51","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-22197934317"},{"id":"23799025820","nome":"Conjunto Gestante Soltinho Regata e Short Leve Plus Size","link":"https://s.shopee.com.br/qiKtd2tvO","img":"https://cf.shopee.com.br/file/br-11134207-81z1k-mhxvuusjuk1u60","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23799025820"},{"id":"18775179341","nome":"kit 3 Camisola Amamentação Abre Fácil Gestante Pós Parto Saída Maternidade Confortável","link":"https://s.shopee.com.br/20uIHlySYl","img":"https://cf.shopee.com.br/file/br-11134207-7r98o-lrrmm4tbf4mc81","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-18775179341"},{"id":"23298678185","nome":"Kit Saída Maternidade Unissex Tricot – Manta, Jardineira, Casaco, Touca e Luvas para Menino e Menina","link":"https://s.shopee.com.br/2VqYsgwcrJ","img":"https://cf.shopee.com.br/file/br-11134207-81z1k-mesog6i1rd3466","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23298678185"},{"id":"23897903320","nome":"Kit 2 Camisolas Amamentação em Suede","link":"https://s.shopee.com.br/70IyExfUih","img":"https://cf.shopee.com.br/file/br-11134207-7r98o-m289ytk77pza0f","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-23897903320"},{"id":"43361773907","nome":"Camisola Plus Size 48 50 52 Cristina","link":"https://s.shopee.com.br/7fYf2BcxMt","img":"https://cf.shopee.com.br/file/sg-11134201-7rdvw-md3mex5iqmacf9","img2":"https://cf.shopee.com.br/file/br-11134201-7r98o-43361773907"}];
+const PER=20;
+let q='',pg=1;
+function f(){return q?P.filter(p=>p.nome.toLowerCase().includes(q.toLowerCase())):P}
+function render(){
+  const list=f(),tot=list.length,pages=Math.max(1,Math.ceil(tot/PER));
+  if(pg>pages)pg=pages;
+  const sl=list.slice((pg-1)*PER,pg*PER);
+  const grid=document.getElementById('grid');
+  const empty=document.getElementById('empty');
+  const ctr=document.getElementById('counter');
+  if(!sl.length){grid.innerHTML='';empty.style.display='flex';ctr.textContent='';return;}
+  empty.style.display='none';
+  ctr.textContent=tot===P.length?tot+' produtos':tot+' resultado'+(tot!==1?'s':'');
+  grid.innerHTML=sl.map(p=>'<a href="'+p.link+'" target="_blank" rel="noopener" class="card"><img class="card-img" src="'+(p.img||p.img2)+'" onerror="this.src=\''+p.img2+'\';this.onerror=null;" alt="'+p.nome.replace(/"/g,'&quot;')+'" loading="lazy"/><div class="card-body"><p class="card-name">'+p.nome+'</p><span class="card-btn">Ver na Shopee →</span></div></a>').join('');
+  const pag=document.getElementById('pagination');
+  if(pages<=1){pag.innerHTML='';return;}
+  let h='<button class="page-btn" onclick="gp('+(pg-1)+')" '+(pg===1?'disabled':'')+'>‹</button>';
+  for(let i=1;i<=pages;i++){
+    if(pages>7&&Math.abs(i-pg)>2&&i!==1&&i!==pages){if(i===pg-3||i===pg+3)h+='<span style="padding:0 4px;color:#bbb">…</span>';continue;}
+    h+='<button class="page-btn '+(i===pg?'active':'')+'" onclick="gp('+i+')">'+i+'</button>';
   }
-
-  function render() {
-    const list  = filtered();
-    const total = list.length;
-    const pages = Math.max(1, Math.ceil(total / PER_PAGE));
-    if (page > pages) page = pages;
-
-    const slice = list.slice((page - 1) * PER_PAGE, page * PER_PAGE);
-
-    const grid  = document.getElementById('grid');
-    const empty = document.getElementById('empty');
-    const ctr   = document.getElementById('counter');
-
-    if (slice.length === 0) {
-      grid.innerHTML = '';
-      empty.style.display = 'flex';
-      ctr.textContent = '';
-    } else {
-      empty.style.display = 'none';
-      ctr.textContent = total === PRODUTOS.length
-        ? total + ' produtos'
-        : total + ' resultado' + (total !== 1 ? 's' : '');
-
-      grid.innerHTML = slice.map(p => `
-        <a href="${p.link}" target="_blank" rel="noopener" class="card">
-          <img class="card-img" src="${p.img}"
-               onerror="this.src='${p.img2}';this.onerror=null;"
-               alt="${p.nome.replace(/"/g,'&quot;')}" loading="lazy"/>
-          <div class="card-body">
-            <p class="card-name">${p.nome}</p>
-            <span class="card-btn">Ver na Shopee →</span>
-          </div>
-        </a>`).join('');
-    }
-
-    // Paginação
-    const pag = document.getElementById('pagination');
-    if (pages <= 1) { pag.innerHTML = ''; return; }
-
-    let html = `<button class="page-btn" onclick="goPage(${page-1})" ${page===1?'disabled':''}>‹</button>`;
-    for (let i = 1; i <= pages; i++) {
-      if (pages > 7 && Math.abs(i - page) > 2 && i !== 1 && i !== pages) {
-        if (i === page - 3 || i === page + 3) html += '<span style="padding:0 4px;color:#bbb">…</span>';
-        continue;
-      }
-      html += `<button class="page-btn ${i===page?'active':''}" onclick="goPage(${i})">${i}</button>`;
-    }
-    html += `<button class="page-btn" onclick="goPage(${page+1})" ${page===pages?'disabled':''}>›</button>`;
-    pag.innerHTML = html;
-  }
-
-  window.goPage = function(p) {
-    page = p;
-    render();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  document.getElementById('search').addEventListener('input', function(e) {
-    query = e.target.value.trim();
-    page  = 1;
-    render();
-  });
-
-  render();
+  h+='<button class="page-btn" onclick="gp('+(pg+1)+')" '+(pg===pages?'disabled':'')+'>›</button>';
+  pag.innerHTML=h;
+}
+window.gp=function(p){pg=p;render();window.scrollTo({top:0,behavior:'smooth'});};
+document.getElementById('search').addEventListener('input',function(e){q=e.target.value.trim();pg=1;render();});
+render();
 })();
 </script>
 </body>
